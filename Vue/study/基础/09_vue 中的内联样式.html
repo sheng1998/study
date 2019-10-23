@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/vue.js"></script>
+    <title>09_vue 中的内联样式</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #app{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            width: 500px;
+            margin: auto;
+            border: 1px solid black;
+        }
+        .red{
+            color: red;
+        }
+        .strong{
+            font-size: 35px;
+        }
+        .italic{
+            font-style: italic;
+        }
+        .center{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="red strong">
+            {{ msg }}
+        </div>
+
+    </div>
+    <script>
+        var z_app = new Vue({
+            el:"#app",
+            data:{
+                msg:"我懒，内联样式还没写"
+            }
+        })    
+    </script>
+</body>
+</html>

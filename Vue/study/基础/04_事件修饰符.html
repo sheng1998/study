@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/vue.js"></script>
+    <title>04_事件修饰符</title>
+    <style>
+        .inner{
+            height: 200px;
+            width: 200px;
+            border: 1px solid;
+        }
+        .btn{
+            margin: 80px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <div class="inner" @click="innerHander">
+            <input class="btn" type="button" value="戳他"  @click="buttonHander">
+        </div>
+
+        <!-- 使用 .stop 来阻止事件冒泡 -->
+        <!-- <div class="inner" @click="innerHander">
+            <input class="btn" type="button" value="戳他"  @click.stop="buttonHander">
+        </div> -->
+
+        <!-- 使用 .prevent 来阻止默认行为 -->
+        <!-- <a href="http://www.baidu.com/" @click.prevent="linkClick()">这是一个百度链接</a> -->
+
+        <!-- 使用 .capture 来捕获事件的触发机制 -->
+        <!-- <div class="inner" @click.capture="innerHander">
+            <input class="btn" type="button" value="戳他"  @click="buttonHander">
+        </div> -->
+
+        <!-- 使用 .self 来实现只有点击当前元素的时候，才会触发事件处理函数 -->
+        <!-- <div class="inner" @click.self="innerHander">
+            <input class="btn" type="button" value="戳他"  @click="buttonHander">
+        </div> -->
+
+    </div>
+    <script>
+        var z_app = new Vue({
+            el:"#app",
+            data:{},
+            methods: {
+                innerHander(){
+                    console.log("你点击了inner元素");
+                },
+                buttonHander(){
+                    console.log("你点击了button元素");
+                },
+                linkClick(){
+                    console.log("你点击了百度的链接");
+                }
+            }
+        })    
+    </script>
+</body>
+</html>

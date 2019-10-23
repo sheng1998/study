@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/vue.js"></script>
+    <title>08_vue中的样式</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #app{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 300px;
+            width: 500px;
+            margin: auto;
+            border: 1px solid black;
+        }
+        .red{
+            color: red;
+        }
+        .strong{
+            font-size: 35px;
+        }
+        .italic{
+            font-style: italic;
+        }
+        .center{
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <div class="red strong">
+            {{ msg }}
+        </div> -->
+
+        <!-- 方式一：直接传递数组，class需要用 v-bind 进行数据绑定 -->
+        <!-- <div :class="['italic','center','strong']">
+            {{ msg }}
+        </div> -->
+
+        <!-- 方式二：使用三元表达式 -->
+        <!-- <div :class="[flag?'italic':'','center','strong']">
+            {{ msg }}
+        </div> -->
+
+        <!-- 方式四:使用对象代替三元表达式，提高代码的可读性 -->
+        <!-- <div :class="['italic','center','strong',{'red':flag}]">
+            {{ msg }}
+        </div> -->
+
+        <!-- 方式五-->
+        <!-- <div :class="{italic:true,center:false,strong:true}">
+            {{ msg }}
+        </div> -->
+        <div :class="sty">
+            {{ msg }}
+        </div>
+
+    </div>
+    <script>
+        var z_app = new Vue({
+            el:"#app",
+            data:{
+                flag:false,
+                msg:"我喜欢学习Vue知识",
+                sty:{italic:true,center:false,strong:true,red:true}
+            }
+        })    
+    </script>
+</body>
+</html>

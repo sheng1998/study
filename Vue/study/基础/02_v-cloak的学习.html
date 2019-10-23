@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./js/vue.js"></script>
+    <title>02_v-cloak的学习</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>{{ z_text }}</p>
+        <p>{{ z_q }}</p>
+        <p v-cloak>{{ z_w + z_e }}</p>
+    </div>
+    <script>
+        var z_app = new Vue({
+            el:"#app",
+            data:{
+                z_text:"我在学习Vue我在学习Vue",
+                z_q:"1223455",
+                z_w:123,
+                z_e:456
+            }
+        })    
+    </script>
+</body>
+</html>

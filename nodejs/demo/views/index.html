@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>首页</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/index.css">
+</head>
+
+<body>
+    <section id="header">
+        <nav id="navigation" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header" id="navbar-header">
+                    <a href="#" class="navbar-brand" style="padding: 0;">
+                        <img src="../public/img/cnodejs_light.svg" alt="cnodejs图标">
+                    </a>
+                </div>
+                <div id="navbar-body" class="collapse navbar-collapse">
+                    <ul id="navbar-ul" class="nav navbar-nav navbar-right">
+                        <li><a href="/index.html">首页</a></li>
+                        <li><a href="#">新手入门</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">关于</a></li>
+                        {{ if user }}
+                        <li>
+                            <a href="#" style="padding: 0;">
+                                <img id="userAvatar" src="{{ user.avatar }}" alt="">
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                             aria-haspopup="true" aria-expanded="false">
+                                {{ user.nickname }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/personal">个人主页</a></li>
+                                <li><a href="#">设置</a></li>
+                                <li><a href="/logout">退出登录</a></li>
+                            </ul>
+                        </li>
+                        {{ else }}
+                        <li><a href="/register">注册</a></li>
+                        <li><a href="/login">登录</a></li>
+                        {{ /if }}
+                    </ul>
+                    <div id="search" class="navbar-form input-group">
+                        <span class="input-group-addon" id="searchSpan"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        <input class="form-control" type="text" id="searchInput">
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <section id="articleTitle" style="padding: 80px;">
+        <div class="list-group container col-md-9 col-xs-12 col-sm-12" id="title">
+            <h4 href="#" class="list-group-item">
+                文章
+                {{ if user }}
+                <span class="badge"><a href="/article">发表文章</a></span>
+                {{ /if }}
+            </h4>
+            {{ each articles }}
+            <a href="/details?p={{ $value.textId }}" class="list-group-item textTitle">
+                <span class="badge" id="badge{{$index+1}}">{{ $value.createdTime }}</span>
+                {{ $value.title }}
+            </a>
+            {{ /each }}
+            <nav aria-label="Page navigation" id="page">
+            </nav>
+        </div>
+        <div class="col-md-3"></div>
+    </section>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = function(){
+            var textTitle = document.getElementsByClassName('textTitle');
+            for(var i=1;i<=textTitle.length;i++){
+                var time  = document.getElementById('badge'+i);
+                var day1 = time.innerHTML.slice(1,11);
+                var day2 = time.innerHTML.slice(12,14);
+                day2 = parseInt(day2)>15?parseInt(day2)-16:parseInt(day2)+8;
+                day2 = day2.toString().padStart(2,'0');
+                var day3 = time.innerHTML.slice(14,20);
+                time.innerHTML = `${day1} ${day2}${day3}`;
+            }
+
+            $.ajax({
+                url: '/index.html',
+                type: 'post',
+                dataType: 'json',
+                success: function(data){
+                    var page = parseInt(data.page);
+                    var Number = parseInt(data.Number);
+                    if(Number>=2){
+                        fenye(Number,page);
+                    }
+                },
+                error: function(err){
+                    window.location.href = '/404.html';
+                }
+            })
+
+            function fenye(Number,page){
+                var HtmlText =`<ul class="pagination">`;
+                if(page>1){
+                    HtmlText += `
+                        <li>
+                            <a href="?page=${page-1}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>`;
+                }else{
+                    HtmlText += `<li class="disabled"><span aria-hidden="true">&laquo;</span></li>`;
+                }
+                if(page>3){
+                    HtmlText += `<li><span>...</span></li>`;
+                }
+                if(page<=3){
+                    for(var i = 0;i < (Number>5?5:Number);i++){
+                        if(i+1===page){
+                            HtmlText += `<li class="active"><span>${i+1}</span></li>`
+                        }else{
+                            HtmlText += `<li><a href="?page=${i+1}">${i+1}</a></li>`
+                        }
+                    }
+                }else if(Number-page>=2){
+                    for(var i = page-3;i < page+2;i++){
+                        if(i+1===page){
+                            HtmlText += `<li class="active"><span>${i+1}</span></li>`
+                        }else{
+                            HtmlText += `<li><a href="?page=${i+1}">${i+1}</a></li>`
+                        }
+                    }
+                }else{
+                    for(var i = Number-5;i < Number;i++){
+                        if(i+1===page){
+                            HtmlText += `<li class="active"><span>${i+1}</span></li>`
+                        }else{
+                            HtmlText += `<li><a href="?page=${i+1}">${i+1}</a></li>`
+                        }
+                    }
+                }
+                if((Number>5)&&(Number-page>=3)){
+                    HtmlText += `<li><span>...</span></li>`;
+                }
+                if(page<Number){
+                    HtmlText += `
+                        <li>
+                        <a href="?page=${page+1}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    </ul>`;
+                }else{
+                    HtmlText += `<li class="disabled"><span aria-hidden="true">&raquo;</span></li>`;
+                }
+                if(page>Number){
+                    HtmlText = `<h2>没有文章</h2>`;
+                }
+                var pageNode = document.getElementById('page');
+                pageNode.innerHTML = HtmlText;
+            }
+        }
+    </script>
+</body>
+
+</html>

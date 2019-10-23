@@ -1,0 +1,35 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html,body {
+    height: 100%;
+    overflow: hidden;
+    background: linear-gradient(243.87deg, cyan 30.6%, #371933 130.6%);
+}
+#register,#login{
+    position: absolute;
+    width: 400px;
+    height: 500px;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+#registerHeader,#loginHeader{
+    text-align: center;
+}
+#registerForm,#toLoginForm,#loginForm,#toRegisterForm{
+    background-color: white;
+    padding: 20px;
+    border: 1px solid rgb(231, 219, 219);
+    border-radius: 10px;
+}
+#toLoginForm,#toRegisterForm{
+    margin-top: 15px;
+    padding: 10px;
+}
+#registerForm button,#loginForm button{
+    margin-top: 10px;
+}

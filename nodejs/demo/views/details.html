@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ articles.title }}</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/index.css">
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        html,body{
+            background-color: #e1e1e1
+        }
+        .details{
+            padding: 10px 50px;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+        #content{
+            text-indent: 2em;
+            font-size: 15px;
+        }
+    </style>
+</head>
+<body>
+    <section id="header">
+        <nav id="navigation" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header" id="navbar-header">
+                    <a href="#" class="navbar-brand" style="padding: 0;">
+                        <img src="../public/img/cnodejs_light.svg" alt="cnodejs图标">
+                    </a>
+                </div>
+                <div id="navbar-body" class="collapse navbar-collapse">
+                    <ul id="navbar-ul" class="nav navbar-nav navbar-right">
+                        <li><a href="/index.html">首页</a></li>
+                        <li><a href="#">新手入门</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">关于</a></li>
+                        {{ if user }}
+                        <li>
+                            <a href="#" style="padding: 0;">
+                                <img id="userAvatar" src="{{ user.avatar }}" alt="">
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                {{ user.nickname }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/personal">个人主页</a></li>
+                                <li><a href="#">设置</a></li>
+                                <li><a href="/logout">退出登录</a></li>
+                            </ul>
+                        </li>
+                        {{ else }}
+                        <li><a href="/register">注册</a></li>
+                        <li><a href="/login">登录</a></li>
+                        {{ /if }}
+                    </ul>
+                    <div id="search" class="navbar-form input-group">
+                        <span class="input-group-addon" id="searchSpan"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        <input class="form-control" type="text" id="searchInput">
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <section style="padding: 80px" id="details">
+        <div class="container details">
+            <div class="row">
+                <div class="col-12">
+                    <h3>
+                        {{ articles.title }}<br/>
+                        <small> • 发布于 <span id="time" time="{{ articles.createdTime }}">0 天前</span>
+                             • 作者 {{ articles.nickname }}
+                              • {{ articles.browse }} 次浏览 • </small>
+                    </h3>
+                    <hr/>
+                    <h5>
+                        <small>
+                            {{ articles.introduction }}
+                        </small>
+                    </h5>
+                    <div id="content">
+                        {{ articles.content }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = function(){
+            var timeNode = document.getElementById('time');
+            var time = timeNode.getAttribute("time").slice(1,11);
+            timeNode.innerHTML = time;
+        }
+    </script>
+</body>
+</html>

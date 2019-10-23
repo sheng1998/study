@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="firstname"> +
+        <input type="text" v-model="lastname"> =
+        <input type="text" v-model="fullname">
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-router/3.1.3/vue-router.min.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstname: '',
+                lastname: '',
+                fullname: ''
+            },
+            watch: {// 使用这个 属性，可以监视 data 中指定数据的变化，然后触发这个 watch 中对应的 function 处理函数
+                firstname: function (newVal, oldVal) {
+                    this.fullname = this.firstname + '-' + this.lastname;
+                },
+                lastname: function () {
+                    this.fullname = this.firstname + '-' + this.lastname;
+                },
+                // '$route.path': function (newVal, oldVal) {
+                //     console.log(newVal + ' --- ' + oldVal)
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

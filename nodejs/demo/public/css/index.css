@@ -1,0 +1,71 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+#navigation{
+    height: 50px;
+    background-color: #444444;
+    padding: 0 50px;
+}
+#navbar-header img{
+    width: 120px;
+    height: 30px;
+    margin: 10px 20px 0 0;
+}
+#search{
+    width: 230px;
+    height: 26px;
+    background-color: #888888;
+    border-radius: 20px;
+    padding: 0;
+}
+#searchSpan,#searchInput{
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+}
+#searchSpan{
+    border-radius: 20px 0 0 20px;
+}
+#searchInput{
+    border-radius: 0 20px 20px 0;
+}
+#searchInput:focus #search,#searchInput:hover #search{
+    background-color: whitesmoke!important;
+}
+#userAvatar{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+#title h4{
+    background-color: #337ab7;
+    color: white;
+}
+#title h4 .badge{
+    background-color: #5cb85c;
+    height: 22px;
+    width: 70px;
+    line-height: 22px;
+    text-align: center;
+    padding: 0;
+}
+#title h4 .badge a{
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+}
+#title a:nth-child(2n-1),#title a:nth-child(2n-1) h3{
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+#title a:nth-child(2n),#title a:nth-child(2n) h3{
+    color: #31708f;
+    background-color: #d9edf7;
+}
+#page a:nth-child(n){
+    color: gray;
+    background-color: white;
+}

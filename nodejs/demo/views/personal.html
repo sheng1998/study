@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>个人主页</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../public/css/index.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        #personal {
+            padding-top: 80px;
+        }
+
+        #personal h4 {
+            color: red;
+        }
+        #personal table tbody tr td:nth-child(1){
+            text-align: center;
+        }
+        #personal table tbody tr:nth-child(2) td:nth-child(n){
+            line-height: 50px;
+            padding: 0;
+        }
+        #personal table tbody img{
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin: 10px;
+        }
+        #personal textarea{
+            resize:none;
+        }
+        #personal .form-group button{
+            float: right;
+        }
+        #personal .radio-inline label{
+            font-weight: normal;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="header">
+        <nav id="navigation" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header" id="navbar-header">
+                    <a href="#" class="navbar-brand" style="padding: 0;">
+                        <img src="../public/img/cnodejs_light.svg" alt="">
+                    </a>
+                </div>
+                <div id="navbar-body" class="collapse navbar-collapse">
+                    <ul id="navbar-ul" class="nav navbar-nav navbar-right">
+                        <li><a href="/index.html">首页</a></li>
+                        <li><a href="#">新手入门</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">关于</a></li>
+                        <li>
+                            <a href="#" style="padding: 0;">
+                                <img id="userAvatar" src="{{ user.avatar }}" alt="">
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                {{ user.nickname }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">个人主页</a></li>
+                                <li><a href="#">设置</a></li>
+                                <li><a href="/logout">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div id="search" class="navbar-form input-group">
+                        <span class="input-group-addon" id="searchSpan"><i class="fa fa-search"
+                                aria-hidden="true"></i></span>
+                        <input class="form-control" type="text" id="searchInput">
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </section>
+    <section id="personal" class="container">
+        <div class="col-sm-6 col-sm-offset-2 col-md-6 col-md-offset-2">
+            <h4><i class="fa fa-user" aria-hidden="true"></i>个人信息</h4>
+            <form class="form-horizontal" id="formform" method="POST" 
+             enctype="multipart/form-data" avatarId="{{ user._id }}">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">头像</label>
+                    <div class="col-sm-10">
+                        <!-- <input type="hidden" name="avatar" value="{{ user.avatar }}"> -->
+                        <img style="width:30px;height:30px;border-radius: 50%;" 
+                            id="img" src="{{ user.avatar }}" alt="">
+                        <input id="photo" type="file" name="file" style="float: right;"
+                         accept="image/jpg, image/png, image/jpeg, image/gif">
+                        <button type="submit" class="btn btn-info">上传头像</button>
+                    </div>
+                </div>
+            </form>
+            <form class="form-horizontal" id="personalForm">
+                <input type="hidden" name="id" value="{{ user._id }}">
+                <input id="uimg" type="hidden" name="avatar" value="{{ user.avatar }}">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">昵称</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="nickname" class="form-control" required minlength="1"
+                        maxlength="30" value="{{ user.nickname }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">性别</label>
+                    <div class="col-sm-10">
+                        <label class="radio-inline">
+                            {{ if user.gender == -1 }}
+                            <input id="gender1" type="radio" name="gender" value="-1" checked>
+                            {{ else }}
+                            <input id="gender1" type="radio" name="gender" value="-1">
+                            {{ /if }}
+                            <label for="gender1">保密</label>
+                        </label>
+                        <label class="radio-inline">
+                            {{ if user.gender == 0 }}
+                            <input id="gender2" type="radio" name="gender" value="0" checked>
+                            {{ else }}
+                            <input id="gender2" type="radio" name="gender" value="0">
+                            {{ /if }}
+                            <label for="gender2">男</label>
+                        </label>
+                        <label class="radio-inline">
+                            {{ if user.gender == 1 }}
+                            <input id="gender3" type="radio" name="gender" value="1" checked>
+                            {{ else }}
+                            <input id="gender3" type="radio" name="gender" value="1">
+                            {{ /if }}
+                            <label for="gender3">女</label>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">邮箱</label>
+                    <div class="col-sm-10">
+                        <input type="hidden" name="email" value="{{ user.email }}">
+                        {{ user.email }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">生日</label>
+                    <div class="col-sm-10">
+                        <input id="birthday" birthday="{{ user.birthday }}" type="date" class="form-control" name="birthday" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">简历</label>
+                    <div class="col-sm-10">
+                        <textarea  class="form-control" rows="5" name="bio" value="{{ user.bio }}">{{ user.bio }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+        <div class="col-sm-6 col-sm-offset-2 col-md-6 col-md-offset-2">
+            <h4><i class="fa fa-lock" aria-hidden="true"></i>修改密码</h4>
+            <form class="form-horizontal" id="passwordForm">
+                <input type="hidden" name="id" value="{{ user._id }}">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">当前密码</label>
+                    <div class="col-sm-10">
+                        <input type="password" name="password" class="form-control" required minlength="3"
+                        maxlength="30">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">新的密码</label>
+                    <div class="col-sm-10">
+                        <input id="password1" type="password" name="password1" class="form-control" 
+                         required minlength="3" maxlength="30">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">确认密码</label>
+                    <div class="col-sm-10">
+                        <input id="password2" type="password" name="password2" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <span id="err" style="color: red"></span>
+                        <button id="changePassword" type="submit" class="btn btn-info">修改</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-4 col-md-4"></div>
+    </section>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        window.onload = function(){
+            var birthdayNode = document.getElementById('birthday');
+            var birthday = birthdayNode.getAttribute("birthday").slice(0,10);
+            birthdayNode.value = birthday;
+            var err = document.getElementById('err');
+        }
+        $('#formform').on('submit',function(e){
+            e.preventDefault();
+            var avatarId = document.getElementById('formform').getAttribute("avatarId");
+            console.log(avatarId)
+            if(!$("#photo")[0].value){
+                return alert('请先选择头像');
+            }
+            var formData = new FormData();
+            formData.append("file",$("#photo")[0].files[0]);
+            $.ajax({
+                url: '/upload?id=' + avatarId,
+                type: 'post',
+                processData: false,
+                contentType: false,
+                data:formData,
+                success: function(data){
+                    var errCode = data.err_code;
+                    if(errCode === 0){
+                        window.alert('上传成功');
+                        $("#userAvatar").attr('src',data.message);
+                        $("#img").attr('src',data.message);
+                        $("#uimg").attr('value',data.message);
+                    } else if(errCode === 500){
+                        window.alert('服务器忙，请稍后重试！');
+                    }
+                }
+            })
+        })
+        $('#personalForm').on('submit',function(e){
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: '/personal',
+                type: 'post',
+                data: formData,
+                dataType: 'json',
+                success: function(data){
+                    var errCode = data.err_code;
+                    if(errCode === 0){
+                        // window.alert('保存成功');
+                        window.location.href = '/index.html';
+                    } else if(errCode === 500){
+                        window.alert('服务器忙，请稍后重试！');
+                    }
+                }
+            })
+        })
+        $('#passwordForm').on('submit',function(e){
+            e.preventDefault();
+            var formData = $(this).serialize();
+            $.ajax({
+                url: '/passwordChange',
+                type: 'post',
+                data: formData,
+                dataType: 'json',
+                success: function(data){
+                    var errCode = data.err_code;
+                    if(errCode === 0){
+                        window.location.href = '/index.html';
+                    } else if(errCode === 1){
+                        err.innerHTML = '当前密码错误！';
+                    }  else if(errCode === 2){
+                        err.innerHTML = '密码不一致！';
+                    } else if(errCode === 500){
+                        window.alert('服务器忙，请稍后重试！');
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

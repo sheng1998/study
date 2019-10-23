@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="test">
+        <input type="button" value="获取元素" @click = 'getElement()'>
+        <h3 ref="myh3">这是一个h3元素</h3>
+        <login ref="mylogin"></login>
+    </div>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <script>
+
+        var vm = new Vue({
+            el: "#test",
+            data: {
+            },
+            methods: {
+                getElement(){
+                    // console.log(this.$refs);
+                    // console.log(this.$refs.myh3.innerText);
+                    // console.log(this.$refs.mylogin.text);
+                    this.$refs.mylogin.show('来来来');
+                }
+            },
+            components: {
+                login: {
+                    template: '<h3>这是组件</h3>',
+                    data:function(){
+                        return {
+                            text:'啧啧啧'
+                        }
+                    },
+                    methods: {
+                        show(login){
+                            console.log('触发了组件的show方法' + login);
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
